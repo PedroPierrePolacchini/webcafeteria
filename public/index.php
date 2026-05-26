@@ -80,7 +80,7 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     		</p>
 
-    		<a href="logout.php">
+    		<a href="../actions/logout.php">
         	Sair
     		</a>
 

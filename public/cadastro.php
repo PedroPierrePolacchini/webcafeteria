@@ -1,154 +1,62 @@
 <?php
 
-require "../includes/db.php";
+session_start();
 
-$erro = "";
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    $nome = trim($_POST['nome']);
-
-    $email = trim($_POST['email']);
-
-    $senha = $_POST['senha'];
-
-	$confirmar_senha = $_POST['confirmar_senha'];
-
-    	if (
-        	empty($nome) ||
-        	empty($email) ||
-        	empty($senha)
-    	) {
-
-        	$erro = "Preencha todos os campos.";
-
-    	} elseif ($senha !== $confirmar_senha) {
-
-	    $erro = "As senhas não coincidem.";
-
-	} else {
-
-        	$hash = password_hash(
-            	$senha,
-            	PASSWORD_DEFAULT
-        );
-
-        $stmt = $pdo->prepare("
-            	INSERT INTO usuarios
-            	(nome, email, senha)
-		VALUES (?, ?, ?)
-	");
-
-        try {
-
-            	$stmt->execute([
-                	$nome,
-                	$email,
-                	$hash
-            	]);
-
-            header("Location: login.php");
-
-            exit;
-
-        } catch (PDOException $e) {
-
-            $erro = "E-mail já cadastrado.";
-        }
-    }
-}
+include '../includes/header.php';
 
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-BR">
+<?php if (isset($_SESSION['erro'])) : ?>
 
-<head>
+    <p class="erro">
 
-    <meta charset="UTF-8">
+        <?= $_SESSION['erro']; ?>
 
-    <title>Cadastro</title>
+    </p>
 
-    <style>
+    <?php unset($_SESSION['erro']); ?>
 
-        body {
-            font-family: Arial;
-            background: #f5f5f5;
-            padding: 40px;
-        }
+<?php endif; ?>
 
-        form {
-            background: white;
-            padding: 30px;
-            max-width: 400px;
-            margin: auto;
-            border-radius: 10px;
-        }
+<div class="form-container">
 
-        input,
-        button {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-        }
+    <h1>Cadastro</h1>
 
-        .erro {
-            color: red;
-        }
+	<?php if (isset($_SESSION['erro'])) : ?>
 
-    </style>
+		<p class="erro">
 
-</head>
+			<?= $_SESSION['erro']; ?>
+		</p>
 
-<body>
+		<?php unset($_SESSION['erro']); ?>
+	<?php endif; ?>
 
-    <form method="POST">
+    <form action="../actions/realizar_cadastro.php" method="POST">
 
-        <h1>Cadastro</h1>
-
-        <?php if ($erro): ?>
-
-            <p class="erro">
-                <?= $erro ?>
-            </p>
-
-        <?php endif; ?>
+        <label>Nome</label>
 
         <input
             type="text"
             name="nome"
-            placeholder="Nome"
+            required
         >
+
+        <label>Email</label>
 
         <input
             type="email"
             name="email"
-            placeholder="E-mail"
+            required
         >
+
+        <label>Senha</label>
 
         <input
             type="password"
-	    name="senha"
-		id="senha"
-            placeholder="Senha"
+            name="senha"
+            required
         >
-
-	<label>
-
-    		<input
-			type="checkbox"
-        		id="mostrarSenha"
-    		>
-		Mostrar senha
-
-	</label>
-
-	<input
-    		type="password"
-    		name="confirmar_senha"
-    		id="confirmar_senha"
-    		placeholder="Confirmar senha"
-	>
 
         <button type="submit">
             Cadastrar
@@ -156,29 +64,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     </form>
 
-<script>
+</div>
 
-	const checkbox =
-		document.getElementById("mostrarSenha");
-
-	checkbox.addEventListener("change", function() {
-
-    	const senha =
-        	document.getElementById("senha");
-
-    	if (checkbox.checked) {
-
-        	senha.type = "text";
-
-    	} else {
-
-        	senha.type = "password";
-
-    	}
-
-	});
-
-</script>
-
-</body>
-</html>
+<?php
+include '../includes/footer.php';
+?>

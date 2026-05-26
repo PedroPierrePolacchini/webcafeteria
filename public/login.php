@@ -87,11 +87,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             color: red;
         }
 
+	.botao{
+		display: inline-block;
+		maring-top: 10px;
+		margin-bottom: 20px;
+		padding: 10px 15px;
+
+		background: brown;
+		color: white;
+
+		text-decoration: none;
+		border-radius: 5px;
+	}
+
+	.botao:hover {
+		background: black;
+	}
+
     </style>
 
 </head>
 
 <body>
+	
+	nao tem conta? <a href="cadastro.php">
+		cadastro
+	</a>
 
     <form method="POST">
 
@@ -122,6 +143,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </button>
 
     </form>
+
+	<a
+		class="botao"
+		href="index.php">
+		voltar ao catalogo
+	</a>
 
 </body>
 </html>

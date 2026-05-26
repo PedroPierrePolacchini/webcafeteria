@@ -4,9 +4,13 @@ session_start();
 
 require "../includes/db.php";
 
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    die('Acesso inválido.');
+}
+
 if (!isset($_SESSION['usuario'])) {
 
-    header("Location: login.php");
+    header("Location: ../public/login.php");
 
     exit;
 }
@@ -145,7 +149,7 @@ try {
         <?= $pedido_id ?>
     </p>
 
-    <a href="index.php">
+    <a href="../public/index.php">
         Voltar à loja
     </a>
 

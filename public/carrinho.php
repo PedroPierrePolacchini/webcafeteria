@@ -120,39 +120,59 @@ $total = 0;
                     <?= number_format($subtotal, 2, ',', '.') ?>
                 </p>
 
-                <a
-                    class="remover"
-                    href="remover_carrinho.php?indice=<?= $indice ?>"
-                >
-                    Remover
-		</a>
+		<form action="../actions/remover_carrinho.php" method="POST">
+
+    		<input
+        		type="hidden"
+        		name="indice"
+        		value="<?= $indice ?>"
+    		>
+
+    		<button type="submit">
+        		Remover
+    		</button>
+
+	</form>
 	
-            </div>
+    	</div>
 
         <?php endforeach; ?>
 
-        <p class="total">
+        	<p class="total">
 
-            Total:
-            R$ <?= number_format($total, 2, ',', '.') ?>
+            	Total: R$ <?= number_format($total, 2, ',', '.') ?>
 
-        </p>
+        	</p>
 
-    <?php endif; ?>
+    	<?php endif; ?>
 
-	<a
+		<a
 		class="botao"
 		href="index.php">
 		voltar ao catalogo
-	</a>
+		</a>
 
-	<a href="finalizar.php">
+	<?php if ((isset($_SESSION['usuario'])) && (!empty($carrinho))): ?>
 
-    	<button>
-        Finalizar Compra
-    	</button>
+		<form action="../actions/finalizar.php" method="POST">
 
-	</a>
+    		<button type="submit">
+        		Finalizar Compra
+    		</button>
 
+		</form>
+
+	<?php elseif ((!isset($_SESSION['usuario'])) && (!empty($carrinho))): ?>
+		
+		Realize login para finalizar a compra <a href="login.php">
+			login
+		</a>
+
+	<?php elseif (empty($carrinho)): ?>
+
+		Carrinho vazio! Explore o catalogo <a href="index.php">
+		</a>
+
+	<?php endif; ?>
 </body>
 </html>

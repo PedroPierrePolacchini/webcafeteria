@@ -113,7 +113,7 @@ if (!$produto) {
         </p>
 
         <form
-            action="adicionar_carrinho.php"
+            action="../actions/adicionar_carrinho.php"
             method="POST"
         >
 
