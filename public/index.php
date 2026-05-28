@@ -33,11 +33,7 @@ include '../includes/header.php';
 
     		<p>
 
-        		Olá,
-        		<?= htmlspecialchars(
-            		$_SESSION['usuario']['nome']
-        		) ?>
-
+        		Olá, <?= htmlspecialchars($_SESSION['usuario']['nome']) ?>
     		</p>
 
     		<a href="../actions/logout.php">

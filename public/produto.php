@@ -17,29 +17,13 @@ if (!$produto) {
 include '../includes/header.php';
 
 ?>
+<div class = "form-container">
 
-<!DOCTYPE html>
-<html lang="pt-BR">
+        <h1>
+            <?= htmlspecialchars($produto['nome']) ?>
+	</h1>
 
-<head>
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>
-        <?= htmlspecialchars($produto['nome']) ?>
-    </title>
-
-    <style>
-
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            padding: 40px;
-        }
+	<style>
 
         .produto-container {
             background: white;
@@ -65,23 +49,6 @@ include '../includes/header.php';
             padding: 10px;
         }
 
-	.botao {
-		display: inline-block;
-		margin-top: 10px;
-		margin-bottom: 20px;
-		padding: 10px 15px;
-		
-		background: brown;
-		color: white;
-
-		text-decoration: none;
-		boder-radius: 5px;
-	}
-
-	.botao:hover {
-		background: black;
-	}
-
     </style>
 
 </head>
@@ -90,9 +57,7 @@ include '../includes/header.php';
 
     <div class="produto-container">
 
-        <h1>
-            <?= htmlspecialchars($produto['nome']) ?>
-        </h1>
+
 
         <p>
             <?= htmlspecialchars($produto['descricao']) ?>
@@ -165,7 +130,8 @@ include '../includes/header.php';
 
         </form>
 
-    </div>
+    	</div>
+</div>
 
 <?php
 include '../includes/footer.php';
