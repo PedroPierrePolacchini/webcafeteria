@@ -1,12 +1,10 @@
 <?php
 
-session_start();
+include '../includes/header.php';
 
 $carrinho = $_SESSION['carrinho'] ?? [];
 
 $total = 0;
-
-include '../includes/header.php';
 
 ?>
 

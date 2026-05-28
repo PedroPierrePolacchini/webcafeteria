@@ -1,18 +1,22 @@
 <?php
 
-session_start();
-
 require "../includes/db.php";
+
+include '../includes/header.php';
 
 $stmt = $pdo->query("SELECT * FROM produtos");
 
 $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-include '../includes/header.php';
-
 ?>
 
 <style>
+
+	.horizontal-container{
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-around;
+	}
 
         .produto {
             background: white;
@@ -28,33 +32,10 @@ include '../includes/header.php';
         }
 
 </style>
+	
+<h1>Lista de Cafés</h1>
 
-	<?php if (isset($_SESSION['usuario'])): ?>
-
-    		<p>
-
-        		Olá, <?= htmlspecialchars($_SESSION['usuario']['nome']) ?>
-    		</p>
-
-    		<a href="../actions/logout.php">
-        	Sair
-    		</a>
-
-	<?php else: ?>
-
-    		<a href="login.php">
-        		Login
-    		</a>
-
-    		<a href="cadastro.php">
-        		Cadastro
-    		</a>
-
-	<?php endif; ?>
-
-
-<div class="form-container">
-    <h1>Lista de Cafés</h1>
+<div class="horizontal-container">
 
     <?php foreach ($produtos as $produto): ?>
 

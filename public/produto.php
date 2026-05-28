@@ -2,6 +2,8 @@
 
 require "../includes/db.php";
 
+include '../includes/header.php';
+
 $id = intval($_GET['id']);
 
 $stmt = $pdo->prepare("SELECT * FROM produtos WHERE id = ?");
@@ -14,9 +16,8 @@ if (!$produto) {
     die("Produto não encontrado.");
 }
 
-include '../includes/header.php';
-
 ?>
+
 <div class = "form-container">
 
         <h1>
