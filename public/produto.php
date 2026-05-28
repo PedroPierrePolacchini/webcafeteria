@@ -14,6 +14,8 @@ if (!$produto) {
     die("Produto não encontrado.");
 }
 
+include '../includes/header.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -62,17 +64,6 @@ if (!$produto) {
             margin-bottom: 20px;
             padding: 10px;
         }
-
-        button {
-            background: brown;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: black;
-	}
 
 	.botao {
 		display: inline-block;
@@ -172,15 +163,10 @@ if (!$produto) {
                 Adicionar ao carrinho
 	    </button>
 
-		<a
-			class="botao"
-			href="index.php">
-			voltar ao catalogo
-		</a>
-
         </form>
 
     </div>
 
-</body>
-</html>
+<?php
+include '../includes/footer.php';
+?>

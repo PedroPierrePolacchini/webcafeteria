@@ -4,6 +4,22 @@ session_start();
 
 include '../includes/header.php';
 
+if (isset($_SESSION['erro'])) :
+
+?>
+
+<script>
+
+	$erro = ("<?= $_SESSION['erro']; ?>");
+
+</script>
+
+<?php
+
+	unset($_SESSION['erro']);
+
+	endif;
+
 ?>
 
 <?php if (isset($_SESSION['erro'])) : ?>
@@ -38,24 +54,24 @@ include '../includes/header.php';
 
         <input
             type="text"
-            name="nome"
-            required
+	    name="nome"
+		required
         >
 
         <label>Email</label>
 
         <input
             type="email"
-            name="email"
-            required
+	    name="email"
+		required
         >
 
         <label>Senha</label>
 
         <input
             type="password"
-            name="senha"
-            required
+	    name="senha"
+		required
         >
 
         <button type="submit">

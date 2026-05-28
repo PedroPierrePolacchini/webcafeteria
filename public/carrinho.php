@@ -6,135 +6,82 @@ $carrinho = $_SESSION['carrinho'] ?? [];
 
 $total = 0;
 
+include '../includes/header.php';
+
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-BR">
+<div class ="form-container">
 
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Carrinho</title>
-
-    <style>
-
-        body {
-            font-family: Arial;
-            background: #f5f5f5;
-            padding: 40px;
-        }
-
-        .item {
-            background: white;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-        }
-
-        .total {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .remover {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 10px;
-
-            background: red;
-            color: white;
-
-            text-decoration: none;
-            border-radius: 5px;
-	}
-	
-	.botao {
-		display: inline-block;
-		margin-top: 10px;
-		margin-bottom: 10px;
-		padding: 10px 15px;
-
-		background: brown;
-		color: white;
-		
-		text-decoration: none;
-		border-radius: 5px;
-	}
-	
-	.botao:hover {
-		background: black;
-	}
-    </style>
-</head>
-
-<body>
 
     <h1>Seu Carrinho</h1>
 
-    <?php if (empty($carrinho)): ?>
+    <style>
 
-        <p>Carrinho vazio.</p>
+	.item {
+	    	background: white;
+            	padding: 20px;
+            	margin-bottom: 20px;
+            	border-radius: 10px;
+        	}
 
-    <?php else: ?>
+        .total {
+            	font-size: 24px;
+            	font-weight: bold;
+        	}
+	
+    </style>
 
-        <?php foreach ($carrinho as $indice => $item): ?>
+	<?php foreach ($carrinho as $indice => $item): ?>
 
-            <?php
+        	<?php
 
-                $subtotal = $item['preco'] * $item['quantidade'];
+                	$subtotal = $item['preco'] * $item['quantidade'];
 
-                $total += $subtotal;
+        		$total += $subtotal;
 
-            ?>
+            	?>
 
-            <div class="item">
+        <div class="item">
 
-                <h2>
-                    <?= htmlspecialchars($item['nome']) ?>
+        	<h2>
+                	<?= htmlspecialchars($item['nome']) ?>
                 </h2>
 
                 <p>
-                    Moagem:
-                    <?= htmlspecialchars($item['moagem']) ?>
+                	Moagem:
+                	<?= htmlspecialchars($item['moagem']) ?>
                 </p>
 
                 <p>
-                    Peso:
-                    <?= htmlspecialchars($item['peso']) ?>
+                	Peso:
+                    	<?= htmlspecialchars($item['peso']) ?>
                 </p>
 
                 <p>
-                    Quantidade:
-                    <?= $item['quantidade'] ?>
+                    	Quantidade:
+                    	<?= $item['quantidade'] ?>
                 </p>
 
                 <p>
-                    Subtotal:
-                    R$
-                    <?= number_format($subtotal, 2, ',', '.') ?>
+                    	Subtotal:R$<?= number_format($subtotal, 2, ',', '.') ?>
                 </p>
 
-		<form action="../actions/remover_carrinho.php" method="POST">
+		<form 
+			action="../actions/remover_carrinho.php" method="POST">
 
-    		<input
-        		type="hidden"
-        		name="indice"
-        		value="<?= $indice ?>"
-    		>
+    			<input
+        			type="hidden"
+        			name="indice"
+        			value="<?= $indice ?>"
+    			>
 
-    		<button type="submit">
-        		Remover
-    		</button>
+			<button 
+				type="submit">
+        			Remover
+    			</button>
 
-	</form>
-	
-    	</div>
+		</form>
+	</div>
 
         <?php endforeach; ?>
 
@@ -143,14 +90,6 @@ $total = 0;
             	Total: R$ <?= number_format($total, 2, ',', '.') ?>
 
         	</p>
-
-    	<?php endif; ?>
-
-		<a
-		class="botao"
-		href="index.php">
-		voltar ao catalogo
-		</a>
 
 	<?php if ((isset($_SESSION['usuario'])) && (!empty($carrinho))): ?>
 
@@ -174,5 +113,8 @@ $total = 0;
 		</a>
 
 	<?php endif; ?>
-</body>
-</html>
+</div>
+
+<?php
+include '../includes/footer.php';
+?>

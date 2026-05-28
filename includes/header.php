@@ -30,10 +30,6 @@
             Carrinho
         </a>
 
-        <a href="/cafeteria/public/login.php">
-            Login
-        </a>
-
     </nav>
 
 </header>

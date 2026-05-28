@@ -4,6 +4,8 @@ session_start();
 
 require "../includes/db.php";
 
+include '../includes/header.php';
+
 $erro = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -51,91 +53,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-BR">
 
-<head>
 
-    <meta charset="UTF-8">
 
-    <title>Login</title>
+<div class="form-container">
 
-    <style>
+	<title>Login</title>
 
-        body {
-            font-family: Arial;
-            background: #f5f5f5;
-            padding: 40px;
-        }
-
-        form {
-            background: white;
-            padding: 30px;
-            max-width: 400px;
-            margin: auto;
-            border-radius: 10px;
-        }
-
-        input,
-        button {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-        }
-
-        .erro {
-            color: red;
-        }
-
-	.botao{
-		display: inline-block;
-		maring-top: 10px;
-		margin-bottom: 20px;
-		padding: 10px 15px;
-
-		background: brown;
-		color: white;
-
-		text-decoration: none;
-		border-radius: 5px;
-	}
-
-	.botao:hover {
-		background: black;
-	}
-
-    </style>
-
-</head>
-
-<body>
-	
-	nao tem conta? <a href="cadastro.php">
-		cadastro
-	</a>
-
-    <form method="POST">
+    	<form method="POST">
 
         <h1>Login</h1>
 
         <?php if ($erro): ?>
 
-            <p class="erro">
-                <?= $erro ?>
-            </p>
+        	<p class="erro">
+                	<?= $erro ?>
+            	</p>
 
         <?php endif; ?>
 
         <input
             type="email"
             name="email"
-            placeholder="E-mail"
+	    placeholder="E-mail"
         >
 
         <input
             type="password"
             name="senha"
-            placeholder="Senha"
+	    placeholder="Senha"
         >
 
         <button type="submit">
@@ -143,12 +89,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </button>
 
     </form>
+</div>
 
-	<a
-		class="botao"
-		href="index.php">
-		voltar ao catalogo
+	nao tem conta? <a 
+		href="cadastro.php">cadastro
 	</a>
 
-</body>
-</html>
+<?php
+include '../includes/footer.php';
+?>

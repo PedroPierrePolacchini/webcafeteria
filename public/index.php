@@ -8,31 +8,11 @@ $stmt = $pdo->query("SELECT * FROM produtos");
 
 $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+include '../includes/header.php';
+
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Cafeteria</title>
-
-    <style>
-
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            padding: 40px;
-        }
-
-        h1 {
-            margin-bottom: 30px;
-        }
+<style>
 
         .produto {
             background: white;
@@ -47,27 +27,7 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
             font-weight: bold;
         }
 
-        .botao {
-            display: inline-block;
-	    margin-top: 10px;
-		margin-bottom: 20px;
-            padding: 10px 15px;
-
-            background: brown;
-            color: white;
-
-            text-decoration: none;
-            border-radius: 5px;
-        }
-
-        .botao:hover {
-	    background: black;
-        }
-
-    </style>
-</head>
-
-<body>
+</style>
 
 	<?php if (isset($_SESSION['usuario'])): ?>
 
@@ -96,13 +56,9 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 	<?php endif; ?>
 
-    <h1>Lista de Cafés</h1>
 
-	<a
-		class="botao"
-		href="carrinho.php">
-		Ver Carrinho
-	</a>
+<div class="form-container">
+    <h1>Lista de Cafés</h1>
 
     <?php foreach ($produtos as $produto): ?>
 
@@ -130,5 +86,8 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <?php endforeach; ?>
 
-</body>
-</html>
+</div>
+
+<?php
+	include '../includes/footer.php';
+?>
