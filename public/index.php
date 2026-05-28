@@ -18,50 +18,84 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		justify-content: space-around;
 	}
 
-        .produto {
-            background: white;
-	    padding: 20px;
+	.produto {
+		background: white;
+		color: black;
+	    	padding: 20px;
 		margin-bottom: 20px;
-            border-radius: 10px;
+            	border-radius: 10px;
         }
 
-        .preco {
-            color: green;
-            font-size: 20px;
-            font-weight: bold;
+	.preco {
+            	color: green;
+            	font-size: 20px;
+            	font-weight: bold;
         }
+
+	.produto-link {
+		display: inline-block;
+    		background-color: #353331;
+    		color: white;
+    		padding: 10px 18px;
+    		border-radius: 6px;
+    		text-decoration: none;
+    		font-weight: bold;
+    		transition: 0.2s;
+	}
+
+	.produto-link:hover {
+    		background-color: gray;
+    		transform: translateY(-2px);
+	}
+	
+	h1{
+		margin-left: 15px;
+	}
 
 </style>
 	
-<h1>Lista de Cafés</h1>
+<h1>Cardapio</h1>
 
 <div class="horizontal-container">
 
-    <?php foreach ($produtos as $produto): ?>
+<?php foreach ($produtos as $produto): ?>
 
-        <div class="produto">
+	<div class="produto">
 
-            <h2>
-                <?= htmlspecialchars($produto['nome']) ?>
-            </h2>
+		<div class="horizontal-container">
 
-            <p>
-                <?= htmlspecialchars($produto['descricao']) ?>
-            </p>
+		<h2>
+        		<?= htmlspecialchars($produto['nome']) ?>
+		</h2>
 
-            <p class="preco">
-                R$ <?= number_format($produto['preco'], 2, ',', '.') ?>
-            </p>
+	    	<p 
+			class="preco">
+                	R$ <?= number_format($produto['preco'], 2, ',', '.') ?>
+	    	</p>
 
-            <a
-                class="botao"
-                href="produto.php?id=<?= $produto['id'] ?>">
-                Ver produto
-            </a>
+		</div>
+
+		<div class="horizontal-container">
+
+            	<p>
+                	<?= htmlspecialchars($produto['descricao']) ?>
+		</p>
+
+		</div>
+
+		<div class="horizontal-container">
+
+		<a
+			class="produto-link"
+                	href="produto.php?id=<?= $produto['id'] ?>">
+                	Ver produto
+		</a>
+
+		</div>
 
         </div>
 
-    <?php endforeach; ?>
+<?php endforeach; ?>
 
 </div>
 

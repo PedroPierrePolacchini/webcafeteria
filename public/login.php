@@ -1,6 +1,9 @@
 <?php
 
+include '../includes/guest.php';
+
 include '../includes/header.php';
+
 
 if (isset($_SESSION['erro'])) :
 
@@ -19,10 +22,6 @@ unset($_SESSION['erro']);
 endif;
 
 ?>
-
-nao tem conta? <a href="cadastro.php">
-	cadastro
-</a>
 
 <div class="form-container">
 

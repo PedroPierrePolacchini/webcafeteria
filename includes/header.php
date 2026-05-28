@@ -25,31 +25,53 @@
 </head>
 
 <style>
+
+	body{
+		background-color: white;
+	}
+
 	nav{
 		display: flex;
 		align-items: center;
 
 		gap: 10px;
 		font-size: 24px;		
-		background-color: pink;
+		background-color: #4e4b48;
 	}
 
 	header{
-		background-color: red;
+		background-color: #4e4b48;
 	}
 
 	nav a{
-	    	background-color: black;
+	    	background-color: #353331;
 		color:white;
     		padding: 10px 20px;
     		border-radius: 6px;
-    		font-weight: bold;
+		font-weight: bold;
+		transition: 0.2s;
 	}
 
 	nav a:hover {
 
     		background-color: gray;
 
+    		transform: translateY(-2px);
+	}
+		
+	button{
+		background-color: #353331;
+		color:white;
+		text-decoration: none;
+		
+    		padding: 10px 20px;
+    		border-radius: 6px;
+		font-weight: bold;
+		transition: 0.2s;
+	}
+
+	button:hover{
+	    	background-color: gray;
     		transform: translateY(-2px);
 	}
 
@@ -84,7 +106,7 @@
         		method="POST"
    		>
 
-        	<button type="submit">
+		<button	type="submit">
             		Sair
         	</button>
 
@@ -93,13 +115,11 @@
 	<?php else: ?>
 
 		<a 	
-			class='button'
 			href="../public/login.php">
 			login
 		</a>
 	
 		<a 	
-			class="button"
 			href="../public/cadastro.php">
 			cadastro
 		</a>

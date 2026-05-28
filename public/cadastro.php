@@ -1,5 +1,7 @@
 <?php
 
+include '../includes/guest.php';
+
 include '../includes/header.php';
 
 if (isset($_SESSION['erro'])) :
@@ -31,10 +33,6 @@ if (isset($_SESSION['erro'])) :
     <?php unset($_SESSION['erro']); ?>
 
 <?php endif; ?>
-
-ja tem conta? <a href="login.php">
-	login
-</a>
 
 <div class="form-container">
 
