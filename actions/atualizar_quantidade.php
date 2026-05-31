@@ -41,7 +41,17 @@ foreach ($_SESSION['carrinho'] as $produto) {
         $produto['preco'] *
         $produto['quantidade'];
 }
+$desconto = 0;
 
+if (isset($_SESSION['cupom'])) {
+
+    $desconto =
+        $total *
+        ($_SESSION['cupom']['desconto'] / 100);
+}
+
+$total_final =
+    $total - $desconto;
 header('Content-Type: application/json');
 
 echo json_encode([
@@ -56,13 +66,12 @@ echo json_encode([
         ',',
         '.'
     ),
-
-    'total' => number_format(
-        $total,
-        2,
-        ',',
-        '.'
-    )
+'total' => number_format(
+    $total_final,
+    2,
+    ',',
+    '.'
+)
 
 ]);
 

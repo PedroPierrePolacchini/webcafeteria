@@ -5,6 +5,8 @@ include '../includes/header.php';
 $carrinho = $_SESSION['carrinho'] ?? [];
 
 $total = 0;
+$desconto = 0;
+$total_final = 0;
 
 ?>
 
@@ -103,11 +105,89 @@ $total = 0;
 		</form>
 	</div>
 
-        <?php endforeach; ?>
+	<?php endforeach; ?>
 
-<p class="total" id="total-geral">
+<?php
 
-    Total: R$ <?= number_format($total, 2, ',', '.') ?>
+if (isset($_SESSION['cupom'])) {
+
+    $desconto =
+        $total *
+        ($_SESSION['cupom']['desconto'] / 100);
+
+}
+
+$total_final = $total - $desconto;
+
+?>
+
+<form
+    action="../actions/aplicar_cupom.php"
+    method="POST"
+>
+
+    <input
+        type="text"
+        name="cupom"
+        placeholder="Digite seu cupom"
+    >
+
+    <button type="submit">
+
+        Aplicar Cupom
+
+    </button>
+
+</form>
+
+<p>
+
+    Subtotal:
+    R$ <?= number_format($total, 2, ',', '.') ?>
+
+</p>
+
+<?php if (isset($_SESSION['cupom'])): ?>
+
+    <p>
+
+        Cupom:
+        <?= htmlspecialchars(
+            $_SESSION['cupom']['codigo']
+        ) ?>
+
+        (
+        <?= $_SESSION['cupom']['desconto'] ?>
+        %)
+
+    </p>
+
+    <p>
+
+        Desconto:
+        R$ <?= number_format(
+            $desconto,
+            2,
+            ',',
+            '.'
+        ) ?>
+
+    </p>
+
+<?php endif; ?>
+
+<p
+    class="total"
+    id="total-geral"
+>
+
+    Total:
+    R$ <?= number_format(
+        $total_final,
+        2,
+        ',',
+        '.'
+    ) ?>
 
 </p>
 
