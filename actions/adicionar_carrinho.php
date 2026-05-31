@@ -31,7 +31,15 @@ $stmt->execute();
 $produto = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$produto) {
-    die('Produto não encontrado.');
+
+    header('Content-Type: application/json');
+
+    echo json_encode([
+        'sucesso' => false,
+        'mensagem' => 'Produto não encontrado.'
+    ]);
+
+    exit;
 }
 
 $item = [
@@ -45,6 +53,11 @@ $item = [
 
 $_SESSION['carrinho'][] = $item;
 
-header('Location: ../public/carrinho.php');
+header('Content-Type: application/json');
+
+echo json_encode([
+    'sucesso' => true,
+    'mensagem' => 'Produto adicionado ao carrinho.'
+]);
 
 exit;

@@ -69,10 +69,7 @@ if (!$produto) {
             <?= number_format($produto['preco'], 2, ',', '.') ?>
         </p>
 
-        <form
-            action="../actions/adicionar_carrinho.php"
-            method="POST"
-        >
+<form id="form-carrinho">
 
             <input
                 type="hidden"
@@ -102,16 +99,16 @@ if (!$produto) {
 
             <select name="peso">
 
-                <option value="250g">
-                    250g
+                <option value="250ml">
+                    250ml
                 </option>
 
-                <option value="500g">
-                    500g
+                <option value="500ml">
+                    500ml
                 </option>
 
-                <option value="1kg">
-                    1kg
+                <option value="1L">
+                    1L
                 </option>
 
             </select>
@@ -129,11 +126,58 @@ if (!$produto) {
                 Adicionar ao carrinho
 	    </button>
 
+<p id="mensagem-carrinho"></p>
+
         </form>
 
     	</div>
 </div>
+<script>
 
+document
+    .getElementById('form-carrinho')
+    .addEventListener('submit', async function(event) {
+
+        event.preventDefault();
+
+        const formData = new FormData(this);
+
+        try {
+
+            const resposta = await fetch(
+                '../actions/adicionar_carrinho.php',
+                {
+                    method: 'POST',
+                    body: formData
+                }
+            );
+
+            const dados = await resposta.json();
+
+            const mensagem =
+                document.getElementById(
+                    'mensagem-carrinho'
+                );
+
+            mensagem.textContent =
+                dados.mensagem;
+
+            mensagem.style.color =
+                dados.sucesso
+                    ? 'green'
+                    : 'red';
+
+        } catch (erro) {
+
+            document.getElementById(
+                'mensagem-carrinho'
+            ).textContent =
+                'Erro ao adicionar produto.';
+        }
+
+    });
+
+</script>
 <?php
 include '../includes/footer.php';
 ?>

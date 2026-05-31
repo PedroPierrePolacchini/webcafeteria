@@ -4,10 +4,16 @@ session_start();
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
-    die('Acesso inválido.');
+    header('Content-Type: application/json');
+
+    echo json_encode([
+        'sucesso' => false
+    ]);
+
+    exit;
 }
 
-$id = $_POST['id'];
+$id = (int) $_POST['id'];
 
 $quantidade = (int) $_POST['quantidade'];
 
@@ -21,6 +27,43 @@ if (isset($_SESSION['carrinho'][$id])) {
     $_SESSION['carrinho'][$id]['quantidade'] = $quantidade;
 }
 
-header('Location: ../public/carrinho.php');
+$item = $_SESSION['carrinho'][$id];
+
+$subtotal =
+    $item['preco'] *
+    $item['quantidade'];
+
+$total = 0;
+
+foreach ($_SESSION['carrinho'] as $produto) {
+
+    $total +=
+        $produto['preco'] *
+        $produto['quantidade'];
+}
+
+header('Content-Type: application/json');
+
+echo json_encode([
+
+    'sucesso' => true,
+
+    'indice' => $id,
+
+    'subtotal' => number_format(
+        $subtotal,
+        2,
+        ',',
+        '.'
+    ),
+
+    'total' => number_format(
+        $total,
+        2,
+        ',',
+        '.'
+    )
+
+]);
 
 exit;

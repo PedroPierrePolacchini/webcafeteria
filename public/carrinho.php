@@ -56,6 +56,7 @@ $total = 0;
                 </p>
 	
 		<form
+    class="form-atualizar"
             		action="../actions/atualizar_quantidade.php"
             		method="POST"
         	>
@@ -81,9 +82,9 @@ $total = 0;
 
         	</form>
 
-                <p>
-                    	Subtotal: R$ <?= number_format($subtotal, 2, ',', '.') ?>
-                </p>
+<p class="subtotal" data-indice="<?= $indice ?>">
+    Subtotal: R$ <?= number_format($subtotal, 2, ',', '.') ?>
+</p>
 
 		<form 
 			action="../actions/remover_carrinho.php" method="POST">
@@ -104,11 +105,11 @@ $total = 0;
 
         <?php endforeach; ?>
 
-        	<p class="total">
+<p class="total" id="total-geral">
 
-            	Total: R$ <?= number_format($total, 2, ',', '.') ?>
+    Total: R$ <?= number_format($total, 2, ',', '.') ?>
 
-        	</p>
+</p>
 
 	<?php if ((isset($_SESSION['usuario'])) && (!empty($carrinho))): ?>
 
@@ -150,6 +151,66 @@ document
     });
 
 </script>
+
+<script>
+
+document
+    .querySelectorAll('.form-atualizar')
+    .forEach(form => {
+
+        form.addEventListener(
+            'submit',
+            async function(event) {
+
+                event.preventDefault();
+
+                const formData =
+                    new FormData(this);
+
+                try {
+
+                    const resposta =
+                        await fetch(
+                            '../actions/atualizar_quantidade.php',
+                            {
+                                method: 'POST',
+                                body: formData
+                            }
+                        );
+
+                    const dados =
+                        await resposta.json();
+
+                    document
+                        .querySelector(
+                            `.subtotal[data-indice="${dados.indice}"]`
+                        )
+                        .textContent =
+                            'Subtotal: R$ ' +
+                            dados.subtotal;
+
+                    document
+                        .getElementById(
+                            'total-geral'
+                        )
+                        .textContent =
+                            'Total: R$ ' +
+                            dados.total;
+
+                } catch (erro) {
+
+                    alert(
+                        'Erro ao atualizar quantidade.'
+                    );
+                }
+
+            }
+        );
+
+    });
+
+</script>
+
 <?php
 include '../includes/footer.php';
 ?>
