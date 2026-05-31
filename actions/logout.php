@@ -3,8 +3,7 @@
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-
-    die('Acesso inválido.');
+	die('Acesso inválido.');
 }
 
 session_unset();

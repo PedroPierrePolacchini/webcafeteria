@@ -10,17 +10,12 @@ if (isset($_SESSION['erro'])) :
 ?>
 
 <script>
-
     	alert("<?= $_SESSION['erro']; ?>");
-
 </script>
 
 <?php
-
 	unset($_SESSION['erro']);
-
-endif;
-
+	endif;
 ?>
 
 <style>
@@ -40,44 +35,44 @@ endif;
 
 <div class="form-container">
 
-    <h1>Login</h1>
+	<h1>Login</h1>
 
     	<form action="../actions/realizar_login.php" method="POST">
 
-        <label>Email</label>
+        	<label>Email</label>
 
-        	<input
-            		type="email"
-            		name="email"
-            		required
-        	>
+        		<input
+            			type="email"
+            			name="email"
+            			required
+        		>
 
-        <label>Senha</label>
+        	<label>Senha</label>
 
-        	<input
-            		type="password"
-			name="senha"
-			id="senha"
-            		required
-		>
+        		<input
+            			type="password"
+				name="senha"
+				id="senha"
+            			required
+			>
 
-	<div class="mostrar-senha">
+		<div class="mostrar-senha">
 	
-		<input
-			type="checkbox"
-			id="mostrar_senha"
-		>
+			<input
+				type="checkbox"
+				id="mostrar_senha"
+			>
 
-		<label
-			for="mostrar_senha">
-			Mostrar senha
-		</label>
-	</div>
+			<label
+				for="mostrar_senha">
+				Mostrar senha
+			</label>
+		</div>
 
-	<button 
-		type="submit">
-            	Entrar
-        </button>
+		<button 
+			type="submit">
+            		Entrar
+        	</button>
 
     	</form>
 
@@ -85,22 +80,16 @@ endif;
 
 <script>
 
-	const checkbox = document.querySelector('#mostrar_senha');
+const checkbox = document.querySelector('#mostrar_senha');
+const senha = document.querySelector('#senha');
+checkbox.addEventListener('change', function() {
+	if (checkbox.checked) {
+		senha.type = 'text';
+	} else {
+		senha.type = 'password';
+	}
+});
 
-	const senha = document.querySelector('#senha');
-
-	checkbox.addEventListener('change', function() {
-	
-		if (checkbox.checked) {
-
-			senha.type = 'text';
-
-		} else {
-
-			senha.type = 'password';
-
-		}
-	});
 </script>
 
 <?php

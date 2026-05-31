@@ -3,8 +3,7 @@
 <?php
 
 	if (session_status() === PHP_SESSION_NONE) {
-
-    		session_start();
+		session_start();
 	}
 ?>
 
@@ -13,15 +12,10 @@
 <html lang="pt-br">
 
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Cafeteria</title>
-
-    <link rel="stylesheet" href="/cafeteria/assets/css/style.css">
-
+    	<meta charset="UTF-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    	<title>Cafeteria</title>
+    	<link rel="stylesheet" href="/cafeteria/assets/css/style.css">
 </head>
 
 <style>

@@ -3,17 +3,17 @@
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    die('Acesso inválido.');
+	die('Acesso inválido.');
 }
 
 if (!isset($_POST['indice'])) {
-    die('Item não informado.');
+    	die('Item não informado.');
 }
 
 $indice = intval($_POST['indice']);
 
 if (!isset($_SESSION['carrinho'][$indice])) {
-    die('Item inexistente.');
+    	die('Item inexistente.');
 }
 
 unset($_SESSION['carrinho'][$indice]);

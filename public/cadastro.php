@@ -9,33 +9,24 @@ if (isset($_SESSION['erro'])) :
 ?>
 
 <script>
-
 	alert("<?= $_SESSION['erro']; ?>");
-
 </script>
 
 <?php
-
 	unset($_SESSION['erro']);
-
 	endif;
-
 ?>
 
 <?php if (isset($_SESSION['erro'])) : ?>
+	<p 
+		class="erro">
+        	<?= $_SESSION['erro']; ?>
+    	</p>
 
-    <p class="erro">
-
-        <?= $_SESSION['erro']; ?>
-
-    </p>
-
-    <?php unset($_SESSION['erro']); ?>
-
+    	<?php unset($_SESSION['erro']); ?>
 <?php endif; ?>
 
 <style>	
-
 	.mostrar-senha {
     		display: flex;
 		align-items: flex-start;
@@ -46,81 +37,76 @@ if (isset($_SESSION['erro'])) :
 	.mostrar-senha input {
     		width: auto;
 	}
-
 </style>
 
 <div class="form-container">
 
-    <h1>Cadastro</h1>
+	<h1>Cadastro</h1>
 
 	<?php if (isset($_SESSION['erro'])) : ?>
 
-		<p class="erro">
-
+		<p 
+			class="erro">
 			<?= $_SESSION['erro']; ?>
 		</p>
 
 		<?php unset($_SESSION['erro']); ?>
+
 	<?php endif; ?>
 
-    <form action="../actions/realizar_cadastro.php" method="POST">
+	<form action="../actions/realizar_cadastro.php" method="POST">
 
-        <label>Nome</label>
+        	<label>Nome</label>
+        		<input
+            			type="text"
+	    			name="nome"
+				required
+        		>
 
-        	<input
-            		type="text"
-	    		name="nome"
-			required
-        	>
+        	<label>Email</label>
+        		<input
+            			type="email"
+	    			name="email"
+				required
+        		>
 
-        <label>Email</label>
-
-        	<input
-            		type="email"
-	    		name="email"
-			required
-        	>
-
-        <label>Senha</label>
-
-        	<input
-            		type="password"
-			name="senha"
-			id="senha"
-			required
-        	>
+        	<label>Senha</label>
+        		<input
+            			type="password"
+				name="senha"
+				id="senha"
+				required
+        		>
 
 		<label>
 
-	<div class="mostrar-senha">
+		<div class="mostrar-senha">
 
-    		<input
-        		type="checkbox"
-        		id="mostrar_senha"
-    		>
+    			<input
+        			type="checkbox"
+        			id="mostrar_senha"
+    			>
 
-		<label 
-			for="mostrar_senha">
-        		Mostrar senha
-
-    		</label>
-
-	</div>
-
+			<label 
+				for="mostrar_senha">
+        			Mostrar senha
+    			</label>
+		</div>
 	</label>
 
 	<label>Confirmar senha</label>
 
-		<input
-    			type="password"
-			name="confirmar_senha"
-			id="confirmar_senha"
-    			required
-		>
+	<input
+    		type="password"
+		name="confirmar_senha"
+		id="confirmar_senha"
+    		required
+	>
 
-        	<button type="submit">
-            		Cadastrar
-        	</button>
+	<button 
+		type="submit">
+            	Cadastrar
+        </button>
 
     	</form>
 
@@ -128,22 +114,15 @@ if (isset($_SESSION['erro'])) :
 
 <script>
 
-    	const checkbox = document.querySelector('#mostrar_senha');
-
-    	const senha = document.querySelector('#senha');
-
-    	checkbox.addEventListener('change', function() {
-
-        	if (checkbox.checked) {
-
-            		senha.type = 'text';
-
-        	} else {
-
-            		senha.type = 'password';
-
-        	}
-    	});
+const checkbox = document.querySelector('#mostrar_senha');
+const senha = document.querySelector('#senha');
+checkbox.addEventListener('change', function() {
+        if (checkbox.checked) {
+            	senha.type = 'text';
+        } else {
+            	senha.type = 'password';
+        }
+});
 
 </script>
 

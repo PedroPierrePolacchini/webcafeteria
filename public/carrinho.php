@@ -10,35 +10,30 @@ $total_final = 0;
 
 ?>
 
-<div class ="form-container">
-
-
-    <h1>Seu Carrinho</h1>
-
-    <style>
-
+<style>
 	.item {
 	    	background: white;
             	padding: 20px;
             	margin-bottom: 20px;
             	border-radius: 10px;
-        	}
+        }
 
         .total {
             	font-size: 24px;
             	font-weight: bold;
-        	}
+        }
 	
-    </style>
+</style>
+
+<div class ="form-container">
+
+	<h1>Seu Carrinho</h1>
 
 	<?php foreach ($carrinho as $indice => $item): ?>
 
         	<?php
-
                 	$subtotal = $item['preco'] * $item['quantidade'];
-
         		$total += $subtotal;
-
             	?>
 
         <div class="item">
@@ -58,7 +53,7 @@ $total_final = 0;
                 </p>
 	
 		<form
-    class="form-atualizar"
+    			class="form-atualizar"
             		action="../actions/atualizar_quantidade.php"
             		method="POST"
         	>
@@ -84,12 +79,15 @@ $total_final = 0;
 
         	</form>
 
-<p class="subtotal" data-indice="<?= $indice ?>">
-    Subtotal: R$ <?= number_format($subtotal, 2, ',', '.') ?>
-</p>
+		<p 
+			class="subtotal" data-indice="<?= $indice ?>">
+    			Subtotal: R$ <?= number_format($subtotal, 2, ',', '.') ?>
+		</p>
 
 		<form 
-			action="../actions/remover_carrinho.php" method="POST">
+			action="../actions/remover_carrinho.php" 
+			method="POST"
+		>
 
     			<input
         			type="hidden"
@@ -110,184 +108,107 @@ $total_final = 0;
 <?php
 
 if (isset($_SESSION['cupom'])) {
-
-    $desconto =
-        $total *
-        ($_SESSION['cupom']['desconto'] / 100);
-
+	$desconto = $total * ($_SESSION['cupom']['desconto'] / 100);
 }
 
 $total_final = $total - $desconto;
 
 ?>
 
-<form
-    action="../actions/aplicar_cupom.php"
-    method="POST"
->
+	<form
+		action="../actions/aplicar_cupom.php"
+		method="POST"
+	>
 
-    <input
-        type="text"
-        name="cupom"
-        placeholder="Digite seu cupom"
-    >
+    		<input
+			type="text"
+        		name="cupom"
+        		placeholder="Digite seu cupom"
+    		>
 
-    <button type="submit">
-
-        Aplicar Cupom
-
-    </button>
-
-</form>
-
-<p>
-
-    Subtotal:
-    R$ <?= number_format($total, 2, ',', '.') ?>
-
-</p>
-
-<?php if (isset($_SESSION['cupom'])): ?>
-
-    <p>
-
-        Cupom:
-        <?= htmlspecialchars(
-            $_SESSION['cupom']['codigo']
-        ) ?>
-
-        (
-        <?= $_SESSION['cupom']['desconto'] ?>
-        %)
-
-    </p>
-
-    <p>
-
-        Desconto:
-        R$ <?= number_format(
-            $desconto,
-            2,
-            ',',
-            '.'
-        ) ?>
-
-    </p>
-
-<?php endif; ?>
-
-<p
-    class="total"
-    id="total-geral"
->
-
-    Total:
-    R$ <?= number_format(
-        $total_final,
-        2,
-        ',',
-        '.'
-    ) ?>
-
-</p>
-
-	<?php if ((isset($_SESSION['usuario'])) && (!empty($carrinho))): ?>
-
-		<form id="form-finalizar" action="../actions/finalizar.php" method="POST">
-
-    		<button type="submit">
-        		Finalizar Compra
+		<button 
+			type="submit">
+        		Aplicar Cupom
     		</button>
 
+	</form>
+
+	<p>
+    		Subtotal:
+    		R$ <?= number_format($total, 2, ',', '.') ?>
+	</p>
+
+	<?php if (isset($_SESSION['cupom'])): ?>
+    		<p>
+        		Cupom: <?= htmlspecialchars($_SESSION['cupom']['codigo']) ?>
+			(<?= $_SESSION['cupom']['desconto'] ?>%)
+    		</p>
+
+    		<p>
+			Desconto: R$ <?= number_format($desconto, 2, ',', '.') ?>
+    		</p>
+
+	<?php endif; ?>
+
+	<p
+    		class="total"
+    		id="total-geral"
+	>
+		Total: R$ <?= number_format($total_final, 2, ',', '.') ?>
+	</p>
+
+	<?php if ((isset($_SESSION['usuario'])) && (!empty($carrinho))): ?>
+		<form id="form-finalizar" action="../actions/finalizar.php" method="POST">
+    			<button type="submit">
+        			Finalizar Compra
+    			</button>
 		</form>
 
 	<?php elseif ((!isset($_SESSION['usuario'])) && (!empty($carrinho))): ?>
-		
-		Realize login para finalizar a compra <a href="login.php">
+		Realize login para finalizar a compra 
+		<a href="login.php">
 			login
 		</a>
 
 	<?php elseif (empty($carrinho)): ?>
-
-		Carrinho vazio! Explore o catalogo <a href="index.php">
+		Carrinho vazio! Explore o catalogo 
+		<a href="index.php">
 		</a>
 
 	<?php endif; ?>
 </div>
+
 <script>
 
-document
-    .getElementById('form-finalizar')
-    .addEventListener('submit', function(event) {
-
-        const confirmar = confirm(
-            'Finalizar compra no valor de R$ <?= number_format($total_final, 2, ',', '.') ?> ?'
-        );
-
-        if (!confirmar) {
-
-            event.preventDefault();
+document.getElementById('form-finalizar').addEventListener('submit', function(event) {
+	const confirmar = confirm('Finalizar compra no valor de R$ <?= number_format($total_final, 2, ',', '.') ?> ?');
+	if (!confirmar) {
+		event.preventDefault();
         }
-    });
+});
 
-</script>
-
-<script>
-
-document
-    .querySelectorAll('.form-atualizar')
-    .forEach(form => {
-
-        form.addEventListener(
-            'submit',
-            async function(event) {
-
-                event.preventDefault();
-
-                const formData =
-                    new FormData(this);
-
-                try {
-
-                    const resposta =
-                        await fetch(
-                            '../actions/atualizar_quantidade.php',
-                            {
-                                method: 'POST',
+document.querySelectorAll('.form-atualizar').forEach(form => {
+	form.addEventListener('submit',async function(event) {
+		event.preventDefault();
+		const formData = new FormData(this);
+		try {
+			const resposta = await fetch('../actions/atualizar_quantidade.php',{
+                        	method: 'POST',
                                 body: formData
-                            }
-                        );
+                        });
+			const dados = await resposta.json();
 
-                    const dados =
-                        await resposta.json();
+			document.querySelector(`.subtotal[data-indice="${dados.indice}"]`)
+				.textContent ='Subtotal: R$ ' +dados.subtotal;
 
-                    document
-                        .querySelector(
-                            `.subtotal[data-indice="${dados.indice}"]`
-                        )
-                        .textContent =
-                            'Subtotal: R$ ' +
-                            dados.subtotal;
+			document.getElementById('total-geral').textContent = 'Total: R$ ' + dados.total;
 
-                    document
-                        .getElementById(
-                            'total-geral'
-                        )
-                        .textContent =
-                            'Total: R$ ' +
-                            dados.total;
-
-                } catch (erro) {
-
-                    alert(
-                        'Erro ao atualizar quantidade.'
-                    );
+		} catch (erro) {
+                    alert('Erro ao atualizar quantidade.');
                 }
 
-            }
-        );
-
-    });
+        });
+});
 
 </script>
 
