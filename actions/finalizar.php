@@ -4,6 +4,8 @@ session_start();
 
 require "../includes/db.php";
 
+include "../includes/header.php";
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     die('Acesso inválido.');
 }
@@ -38,12 +40,7 @@ try {
 
     $pdo->beginTransaction();
 
-    /*
-    =========================
-    CRIA PEDIDO
-    =========================
-    */
-
+	# cria pedido
     $stmt = $pdo->prepare("
         INSERT INTO pedidos
         (usuario_id, total)
@@ -55,20 +52,11 @@ try {
         $total
     ]);
 
-    /*
-    =========================
-    PEGA ID DO PEDIDO
-    =========================
-    */
-
+	# pega o id do pedido
     $pedido_id =
         $pdo->lastInsertId();
 
-    /*
-    =========================
-    INSERE ITENS
-    =========================
-    */
+    	#insere os itens
 
     $stmtItem = $pdo->prepare("
         INSERT INTO itens_pedido
@@ -102,19 +90,11 @@ try {
         ]);
     }
 
-    /*
-    =========================
-    FINALIZA TRANSAÇÃO
-    =========================
-    */
+    	# finaliza a transacao
 
-    $pdo->commit();
+	$pdo->commit();
 
-    /*
-    =========================
-    LIMPA CARRINHO
-    =========================
-    */
+    	# limpa o carrinho
 
     unset($_SESSION['carrinho']);
 
@@ -127,31 +107,17 @@ try {
 
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-BR">
+<div class = "form-container">
 
-<head>
+    	<h1>
+        	Pedido realizado com sucesso!
+    	</h1>
 
-    <meta charset="UTF-8">
+    	<p>
+        	Número do pedido:
+        	<?= $pedido_id ?>
+    	</p>
 
-    <title>Pedido Finalizado</title>
-
-</head>
-
-<body>
-
-    <h1>
-        Pedido realizado com sucesso!
-    </h1>
-
-    <p>
-        Número do pedido:
-        <?= $pedido_id ?>
-    </p>
-
-    <a href="../public/index.php">
-        Voltar à loja
-    </a>
-
-</body>
-</html>
+<?php
+include '../includes/footer.php';
+?>

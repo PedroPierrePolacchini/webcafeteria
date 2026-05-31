@@ -54,14 +54,35 @@ $total = 0;
                 	Peso:
                     	<?= htmlspecialchars($item['peso']) ?>
                 </p>
+	
+		<form
+            		action="../actions/atualizar_quantidade.php"
+            		method="POST"
+        	>
+
+            		<input
+                		type="hidden"
+                		name="id"
+                		value="<?= $indice; ?>"
+            		>
+
+            		<input
+                		type="number"
+                		name="quantidade"
+                		value="<?= $item['quantidade']; ?>"
+				min="1"
+				max="99"
+            		>
+
+			<button 
+				type="submit">
+                		Atualizar
+            		</button>
+
+        	</form>
 
                 <p>
-                    	Quantidade:
-                    	<?= $item['quantidade'] ?>
-                </p>
-
-                <p>
-                    	Subtotal:R$<?= number_format($subtotal, 2, ',', '.') ?>
+                    	Subtotal: R$ <?= number_format($subtotal, 2, ',', '.') ?>
                 </p>
 
 		<form 

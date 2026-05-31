@@ -54,7 +54,7 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 </style>
 	
-<h1>Cardapio</h1>
+<h1>Cardápio</h1>
 
 <div class="horizontal-container">
 
@@ -88,7 +88,7 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 		<a
 			class="produto-link"
                 	href="produto.php?id=<?= $produto['id'] ?>">
-                	Ver produto
+                	ver produto
 		</a>
 
 		</div>

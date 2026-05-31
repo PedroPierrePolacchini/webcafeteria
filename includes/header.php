@@ -86,7 +86,7 @@
 
 		<a 	
 			href="../public/index.php">
-            		Catalogo
+            		Catálogo
         	</a>
 
 		<a 	
@@ -98,7 +98,7 @@
 	<?php if (isset($_SESSION['usuario'])): ?>
 
 		<a	class="header-text">
-			Olah, <?=htmlspecialchars($_SESSION['usuario']['nome']) ?>
+			Olá <?=htmlspecialchars($_SESSION['usuario']['nome']) ?>
 		</a>
 
     		<form
@@ -116,12 +116,12 @@
 
 		<a 	
 			href="../public/login.php">
-			login
+			Login
 		</a>
 	
 		<a 	
 			href="../public/cadastro.php">
-			cadastro
+			Cadastro
 		</a>
 
 	<?php endif; ?>
