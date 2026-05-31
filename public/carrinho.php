@@ -221,7 +221,7 @@ document
     .addEventListener('submit', function(event) {
 
         const confirmar = confirm(
-            'Finalizar compra no valor de R$ <?= number_format($total, 2, ',', '.') ?> ?'
+            'Finalizar compra no valor de R$ <?= number_format($total_final, 2, ',', '.') ?> ?'
         );
 
         if (!confirmar) {

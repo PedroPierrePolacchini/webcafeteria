@@ -36,22 +36,49 @@ foreach ($carrinho as $item) {
         $item['quantidade'];
 }
 
+$desconto = 0;
+$cupom_codigo = null;
+
+if (isset($_SESSION['cupom'])) {
+
+    $cupom_codigo =
+        $_SESSION['cupom']['codigo'];
+
+    $desconto =
+        $total *
+        (
+            $_SESSION['cupom']['desconto']
+            / 100
+        );
+}
+
+$total_final = $total - $desconto;
+
 try {
 
     $pdo->beginTransaction();
 
 	# cria pedido
-    $stmt = $pdo->prepare("
-        INSERT INTO pedidos
-        (usuario_id, total)
-        VALUES (?, ?)
-    ");
+$stmt = $pdo->prepare("
+    INSERT INTO pedidos
+    (
+        usuario_id,
+        total,
+        desconto,
+        cupom_codigo
+    )
+    VALUES
+    (?, ?, ?, ?)
+");
+$stmt->execute([
 
-    $stmt->execute([
-        $usuario_id,
-        $total
-    ]);
+    $usuario_id,
+	$total_final,
+    $desconto,
 
+    $cupom_codigo
+
+]);
 	# pega o id do pedido
     $pedido_id =
         $pdo->lastInsertId();
@@ -97,6 +124,7 @@ try {
     	# limpa o carrinho
 
     unset($_SESSION['carrinho']);
+unset($_SESSION['cupom']);
 
 } catch (Exception $e) {
 
@@ -116,7 +144,16 @@ try {
     	<p>
         	Número do pedido:
         	<?= $pedido_id ?>
-    	</p>
+	</p>
+	<p>
+    Total pago:
+    R$ <?= number_format(
+        $total_final,
+        2,
+        ',',
+        '.'
+    ) ?>
+</p>
 
 <?php
 include '../includes/footer.php';
