@@ -75,6 +75,12 @@
     		transform: translateY(-2px);
 	}
 
+	.usuario-logado {
+    		font-weight: bold;
+    		color: white;
+    		padding: 10px;
+	}
+
 
 </style>
 
@@ -97,9 +103,11 @@
 
 	<?php if (isset($_SESSION['usuario'])): ?>
 
-		<a	class="header-text">
-			Olá <?=htmlspecialchars($_SESSION['usuario']['nome']) ?>
-		</a>
+		<span class="usuario-logado">
+
+    			Olá, <?= htmlspecialchars($_SESSION['usuario']['nome']) ?>
+
+		</span>
 
     		<form
         		action="/cafeteria/actions/logout.php"
@@ -110,7 +118,7 @@
             		Sair
         	</button>
 
-    </form>
+    		</form>
 
 	<?php else: ?>
 

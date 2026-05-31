@@ -118,6 +118,28 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
     transform: translateY(-2px);
 }
 
+.busca-container {
+
+    text-align: center;
+
+    margin: 20px;
+}
+
+#busca {
+
+    width: 300px;
+
+    max-width: 90%;
+
+    padding: 10px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 6px;
+
+    font-size: 16px;
+}
+
 h1 {
 
     margin-left: 15px;
@@ -126,6 +148,16 @@ h1 {
 </style>
 
 <h1>Cardápio</h1>
+
+<div class="busca-container">
+
+    <input
+        type="text"
+        id="busca"
+        placeholder="Buscar produto..."
+    >
+
+</div>
 
 <div class="horizontal-container">
 
@@ -171,6 +203,37 @@ h1 {
 <?php endforeach; ?>
 
 </div>
+
+<script>
+
+const busca = document.getElementById('busca');
+
+busca.addEventListener('keyup', function() {
+
+    const texto = busca.value.toLowerCase();
+
+    const produtos =
+        document.querySelectorAll('.produto-card');
+
+    produtos.forEach(function(produto) {
+
+        const nome =
+            produto.querySelector('h2')
+                .textContent
+                .toLowerCase();
+
+        if (nome.includes(texto)) {
+
+            produto.style.display = 'block';
+
+        } else {
+
+            produto.style.display = 'none';
+        }
+    });
+});
+
+</script>
 
 <?php
 include '../includes/footer.php';

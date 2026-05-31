@@ -112,7 +112,7 @@ $total = 0;
 
 	<?php if ((isset($_SESSION['usuario'])) && (!empty($carrinho))): ?>
 
-		<form action="../actions/finalizar.php" method="POST">
+		<form id="form-finalizar" action="../actions/finalizar.php" method="POST">
 
     		<button type="submit">
         		Finalizar Compra
@@ -133,7 +133,23 @@ $total = 0;
 
 	<?php endif; ?>
 </div>
+<script>
 
+document
+    .getElementById('form-finalizar')
+    .addEventListener('submit', function(event) {
+
+        const confirmar = confirm(
+            'Finalizar compra no valor de R$ <?= number_format($total, 2, ',', '.') ?> ?'
+        );
+
+        if (!confirmar) {
+
+            event.preventDefault();
+        }
+    });
+
+</script>
 <?php
 include '../includes/footer.php';
 ?>

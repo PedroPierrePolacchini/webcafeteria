@@ -14,6 +14,7 @@ $email = trim($_POST['email']);
 
 $senha = trim($_POST['senha']);
 
+$confirmar_senha = trim($_POST['confirmar_senha']);
 if (empty($nome) || empty($email) || empty($senha)) {
     	die('Preencha todos os campos.');
 }
@@ -44,16 +45,12 @@ if ($usuario) {
 
 if ($senha !== $confirmar_senha) {
 
-    	$_SESSION['erro'] =
-        'As senhas não coincidem.';
+    	$_SESSION['erro'] = 'As senhas não coincidem.';
 
     	header('Location: ../public/cadastro.php');
 	
     	exit;
 }
-
-$confirmar_senha =
-    	trim($_POST['confirmar_senha']);
 
 $senha_hash = password_hash(
     	$senha,
